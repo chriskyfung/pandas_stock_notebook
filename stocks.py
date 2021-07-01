@@ -10,12 +10,18 @@ class stock_profile:
     self.dataframes = {}
     if fpath:
       self.loadJsonProfile(fpath)
+    return
 
   def loadJsonProfile(self, fpath):
     with open(fpath) as f:
       jsondata = json.load(f)
-    self.listing = dict((k.lower(), v) for k, v in jsondata['listing'].items())
-    self.name_dict = dict((k, v.lower()) for k, v in jsondata['name_dict'].items())
+    self.listing = dict((k.lower(), v.split(',',1)[0]) for k, v in jsondata['listing'].items())
+    # self.name_dict = dict((k, v.lower()) for k, v in jsondata['name_dict'].items())
+    for k, v in self.listing.items():
+      names = v.split(',')
+      for n in names:
+        self.name_dict[n.strip()] = k
+    return
 
   def name2code(self, stock_name):
     try:
@@ -39,4 +45,4 @@ class stock_profile:
       print(f'{stock_name}({s}):')
       display(df)
       print('\n')
-
+    return
