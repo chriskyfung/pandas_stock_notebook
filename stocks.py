@@ -35,14 +35,18 @@ class stock_profile:
     except:
       return ''
   
-  def cacheFromYahooData(self, stock_codes, start_date, end_date=None):
+  def cacheFromQuandl(self, stock_codes, start_date, end_date=None):
     if end_date == None:
       end_date = date.today()
-    for s in stock_codes:
-      df = pdr.DataReader(s, 'yahoo', start_date, end_date)
-      self.dataframes[s] = df.copy()
-      stock_name = self.code2name(s)
-      print(f'{stock_name}({s}):')
-      display(df)
-      print('\n')
+    if isinstance(stock_codes,list):
+      for s in stock_codes:
+        qs = 'HKEX/' + s.rstrip('.hk').zfill(5)
+        df = pdr.DataReader(qs, 'quandl', start_date, end_date)
+        self.dataframes[s] = df.copy()
+        stock_name = self.code2name(s)
+        print(f'{stock_name}({s}):')
+        display(df)
+        print('\n')
+    else:
+      print('ERROR: Wrong type argument: list, stock_codes')
     return
