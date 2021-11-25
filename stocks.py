@@ -53,3 +53,7 @@ class stock_profile:
     else:
       print('ERROR: Wrong type argument: list, stock_codes')
     return
+
+  # Get all tickers from listing
+  def getAllStockCodes(self):
+    return list(self.listing.keys())
