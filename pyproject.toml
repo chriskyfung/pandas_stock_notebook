@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "pandas-stock-notebook"
+version = "0.1.0"
+description = "使用Pandas和Pandas Datareader的查詢香港股票的Jupyter Notebook範例"
+authors = ["Chris K.Y. FUNG <8746768+chriskyfung@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "pandas_stock_notebook"}]
+
+[tool.poetry.dependencies]
+python = ">=3.7.1"
+numpy = ">=1.21.0,<1.22.0"
+pandas = ">=1.2.5,<1.3.0"
+pandas-datareader = ">=0.9.0,<0.10.0"
+pandas-market-calendars = ">=2.0,<3.0"
+python-dotenv = ">=0.20.0"
+termcolor = ">=1.1.0,<1.2.0"
+yfinance = ">=0.1.59,<0.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
