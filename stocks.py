@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date
 import json
 import yfinance as yf
 from IPython.display import display
@@ -45,16 +45,19 @@ class stock_profile:
       tickers = [s.upper() for s in stock_codes]
       df = yf.download(tickers, start=start_date, end=end_date)
       for s in stock_codes:
-        # Extract the data for the stock
-        stock_df = df.loc[:, (slice(None), s.upper())] # Use s.upper() to match the ticker in the multi-index
-        # Remove the stock code from the column index
-        stock_df.columns = stock_df.columns.droplevel(1)
-        # Store the cleaned dataframe
-        self.dataframes[s] = stock_df.copy()
-        stock_name = self.code2name(s)
-        print(f'{stock_name}({s}):')
-        display(self.dataframes[s])
-        print('\n')
+       # Check if the ticker's data was downloaded successfully
+       if s.upper() in df.columns.get_level_values(1):
+         stock_df = df.loc[:, (slice(None), s.upper())] # Use s.upper() to match the ticker in the multi-index
+         # Remove the stock code from the column index
+         stock_df.columns = stock_df.columns.droplevel(1)
+         # Store the cleaned dataframe
+         self.dataframes[s] = stock_df.copy()
+         stock_name = self.code2name(s)
+         print(f'{stock_name}({s}):')
+         display(self.dataframes[s])
+       else:
+         print(f'Could not download data for {s}')
+       print('\n')
     else:
       print('ERROR: Wrong type argument: list, stock_codes')
     return
