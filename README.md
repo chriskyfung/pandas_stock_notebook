@@ -2,7 +2,7 @@
 
 ![MADE WITH JYPYTER](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=flat&logo=Jupyter) ![MADE WITH JYPYTER](https://img.shields.io/badge/Made%20with-Python-3776AB?style=flat&logo=Python&logoColor=white) [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
-使用 Pandas 和 Pandas Datareader 的查詢香港股票的 Jupyter Notebook 範例
+使用 Pandas 和 yfinance 的查詢香港股票的 Jupyter Notebook 範例
 
 👇 **親自試試看** 👨‍💻
 
@@ -14,14 +14,6 @@
 
 ```shell
 pip install -r requirements.txt
-```
-
-## 環境變數
-
-請將您的 **Quandl API** 密鑰填寫至開發專案根目錄中的 `.env` 文件。
-
-```shell
-QUANDL_API_KEY=<your-quandl-api-key>
 ```
 
 ## 用法
@@ -40,15 +32,15 @@ stocks = stock_profile()
 stocks.loadJsonProfile('./stocks.json')
 ```
 
-### 從 Quandl 下載某一天的股票組合數據
+### 從 Yahoo Finance 下載股票組合數據
 
 ```py
 from datetime import date
 
 tickers = ['0001.hk', '0941.hk','1810.hk']
-d = date(2021, 9, 15)
+start_date = date(2021, 9, 15)
 
-stocks.cacheFromQuandl(tickers, d)
+stocks.cacheFromYfinance(tickers, start_date)
 ```
 
 ## License
